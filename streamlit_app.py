@@ -29,7 +29,7 @@ if ingredients_list:
         ingredients_string += fruit_chosen + " "
 
         smoothiefroot_response = requests.get(
-            "https://my.smoothiefroot.com/api/fruit/" + fruit_chosen.lower()
+            "https://my.smoothiefroot.com/api/fruit/watermelon"
         )
 
         sf_df = st.dataframe(
