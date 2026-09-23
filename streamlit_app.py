@@ -1,8 +1,8 @@
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
-session = get_active_session()
+cnx = st.connection("snowflake")
+session = cnx.session()
 
 st.title("🥤 Customize Your Smoothie! 🥤")
 st.write("Choose the fruits you want in your custom Smoothie!")
@@ -22,14 +22,14 @@ ingredients_list = st.multiselect(
 
 if ingredients_list:
 
-    ingredients_string = ''
+    ingredients_string = ""
 
     for fruit_chosen in ingredients_list:
-        ingredients_string += fruit_chosen + ' '
+        ingredients_string += fruit_chosen + " "
 
     my_insert_stmt = """insert into smoothies.public.orders
     (ingredients, name_on_order)
-    values ('""" + ingredients_string + """', '""" + name_on_order + """')"""
+    values ('""" + ingredients_string + "', '" + name_on_order + "')"
 
     submit = st.button("Submit Order")
 
