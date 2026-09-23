@@ -1,5 +1,6 @@
 import streamlit as st
 from snowflake.snowpark.functions import col
+import requests
 
 cnx = st.connection("snowflake")
 session = cnx.session()
@@ -39,3 +40,13 @@ if ingredients_list:
             "Your Smoothie is ordered, " + name_on_order + "!",
             icon="✅"
         )
+
+# SmoothieFroot API
+smoothiefroot_response = requests.get(
+    "https://my.smoothiefroot.com/api/fruit/watermelon"
+)
+
+sf_df = st.dataframe(
+    data=smoothiefroot_response.json(),
+    use_container_width=True
+)
