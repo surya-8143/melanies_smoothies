@@ -17,12 +17,12 @@ my_dataframe = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(
     col("SEARCH_ON")
 )
 
-st.dataframe(my_dataframe, use_container_width=True)
-st.stop()
+# Convert Snowpark DataFrame to Pandas DataFrame
+pd_df = my_dataframe.to_pandas()
 
 ingredients_list = st.multiselect(
     "Choose up to 5 ingredients:",
-    my_dataframe,
+    pd_df["FRUIT_NAME"],
     max_selections=5
 )
 
